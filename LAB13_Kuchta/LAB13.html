@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Triangle Calculator</h1>
+    <div class="container">
+        <label for="sideA">Сторона A:</label>
+        <input type="number" id="sideA" placeholder="Введіть сторону A">
+
+        <label for="sideB">Сторона B:</label>
+        <input type="number" id="sideB" placeholder="Введіть сторону B">
+
+        <label for="sideC">Сторона C:</label>
+        <input type="number" id="sideC" placeholder="Введіть сторону C">
+
+        <button onclick="calculateTriangle()">Обчислити</button>
+    </div>
+
+    <script>
+        function calculateTriangle() {
+            // Отримання значень сторін трикутника з полів введення
+            let sideA = parseFloat(document.getElementById("sideA").value);
+            let sideB = parseFloat(document.getElementById("sideB").value);
+            let sideC = parseFloat(document.getElementById("sideC").value);
+
+            // Перевірка чи введені дані коректні
+            if (isNaN(sideA) || isNaN(sideB) || isNaN(sideC) || sideA <= 0 || sideB <= 0 || sideC <= 0) {
+                alert('Incorrect data');
+                return;
+            }
+
+            // Обчислення півпериметра
+            let s = (sideA + sideB + sideC) / 2;
+            // Обчислення площі трикутника за формулою Герона
+            let area = Math.sqrt(s * (s - sideA) * (s - sideB) * (s - sideC)).toFixed(3);
+
+            // Виведення площі трикутника в спливаючому вікні
+            alert(`Площа трикутника: ${area}`);
+
+            // Перевірка чи трикутник є прямокутним
+            let isRightTriangle = (sideA ** 2 + sideB ** 2 === sideC ** 2) || 
+                                  (sideA ** 2 + sideC ** 2 === sideB ** 2) || 
+                                  (sideB ** 2 + sideC ** 2 === sideA ** 2);
+
+            // Виведення результату перевірки в спливаючому вікні
+            if (isRightTriangle) {
+                alert('Цей трикутник є прямокутним');
+            } else {
+                alert('Цей трикутник не є прямокутним');
+            }
+        }
+    </script>
+</body>
+</html>
